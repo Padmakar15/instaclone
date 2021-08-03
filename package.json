@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-
+  "engines" : { "node" : ">=0.12" },
+  "engineStrict" : true, 
   "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",
