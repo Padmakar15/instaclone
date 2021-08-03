@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
+import a from "../../server/client/build/index.html";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-
+console.log("11111111111111111111111111", dirname);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log("********************************", __dirname);
 import cors from "cors";
@@ -37,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     // res.sendFile(resolve(__dirname, "client", "build", "index.html"));
-    res.sendFile(resolve(`/app/client/build/index.html`));
+    res.sendFile(`/app/client/build/index.html`);
   });
 }
 
