@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
-import path from "path";
+import { dirname, resolve } from "path";
 import cors from "cors";
 const app = express();
 
@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(resolve(dirname, "client", "build", "index.html"));
   });
 }
 
