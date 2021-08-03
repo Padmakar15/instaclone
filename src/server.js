@@ -5,6 +5,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log(__dirname);
 import cors from "cors";
 const app = express();
 
@@ -35,7 +36,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(resolve(__dirname, "client", "build", "index.html"));
+    // res.sendFile(resolve(__dirname, "client", "build", "index.html"));
+
+    res.sendFile(`F:\padmkar\instaclone\server\client\build\index.html`);
   });
 }
 
