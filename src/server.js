@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
-// import a from "../../server/client/build/index.html";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
-console.log("11111111111111111111111111", dirname);
-const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log("********************************", __dirname);
+import path from "path";
+// import { resolve, dirname } from "path";
+// import { fileURLToPath } from "url";
+// console.log("11111111111111111111111111", dirname);
+// const __dirname = dirname(fileURLToPath(import.meta.url));
+// console.log("********************************", __dirname);
 import cors from "cors";
 const app = express();
 
@@ -37,8 +37,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
+    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
     // res.sendFile(resolve(__dirname, "client", "build", "index.html"));
-    res.sendFile(import("../client/build"));
+    // res.sendFile(import("../client/build"));
     // res.sendFile(`/app/client/build/index.html`);
   });
 }
