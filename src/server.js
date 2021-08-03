@@ -1,7 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
-import { dirname, resolve } from "path";
+import { resolve } from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const dirname = dirname(fileURLToPath(import.meta.url));
 import cors from "cors";
 const app = express();
 
