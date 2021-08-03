@@ -38,8 +38,8 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     // res.sendFile(resolve(__dirname, "client", "build", "index.html"));
-    // res.sendFile(import "../../server/client/build/index.html")
-    res.sendFile(`/app/client/build/index.html`);
+    res.sendFile(import("../client/build/index.html"));
+    // res.sendFile(`/app/client/build/index.html`);
   });
 }
 
