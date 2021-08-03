@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
-import path from "path";
+// import path from "path";
 // import { resolve, dirname } from "path";
 // import { fileURLToPath } from "url";
 // console.log("11111111111111111111111111", dirname);
@@ -32,12 +32,13 @@ mongoose.connection.on("error", (err) => console.log("error connecting", err));
 
 app.use("/api", userRoute);
 app.use("/api", postRoute);
-
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-
+  const path = require("path");
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(path.dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
     // res.sendFile(resolve(__dirname, "client", "build", "index.html"));
     // res.sendFile(import("../client/build"));
     // res.sendFile(`/app/client/build/index.html`);
