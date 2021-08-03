@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import env from "dotenv";
 import { resolve } from "path";
-import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const dirname = dirname(fileURLToPath(import.meta.url));
