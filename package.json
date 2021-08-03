@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+
   "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -14,7 +15,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start":"node --experimental-modules ./src/server.js"
+    "start":"node --experimental-modules ./src/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
