@@ -1,13 +1,11 @@
-import express from "express";
-import User from "../models/User.js";
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import Post from "../models/Post.js";
+const express = require("express");
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const Post = require("../models/Post");
 
-const userController = {};
-
-userController.signup = (req, res) => {
+exports.signup = (req, res) => {
   const { name, email, password, profile } = req.body;
   if (!name || !email || !password)
     return res.status(422).json({ error: "please add all the fields" });
@@ -32,7 +30,7 @@ userController.signup = (req, res) => {
     .catch((error) => res.status(400).json({ message: error }));
 };
 
-userController.signin = (req, res) => {
+exports.signin = (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(422).json("please add email and password");
@@ -60,7 +58,7 @@ userController.signin = (req, res) => {
   });
 };
 
-userController.searchUser = (req, res) => {
+exports.searchUser = (req, res) => {
   User.findOne({ _id: req.params.id })
     .select("-password")
     .then((user) => {
@@ -75,7 +73,7 @@ userController.searchUser = (req, res) => {
       return res.status(422).json({ error: "user not found" });
     });
 };
-userController.followUser = (req, res) => {
+exports.followUser = (req, res) => {
   User.findByIdAndUpdate(
     req.body.followId,
     {
@@ -100,7 +98,7 @@ userController.followUser = (req, res) => {
   );
 };
 
-userController.unfollowUser = (req, res) => {
+exports.unfollowUser = (req, res) => {
   User.findByIdAndUpdate(
     req.body.unfollowId,
     {
@@ -125,7 +123,7 @@ userController.unfollowUser = (req, res) => {
   );
 };
 
-userController.updateProfile = (req, res) => {
+exports.updateProfile = (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { $set: { profile: req.body.profile } },
@@ -136,5 +134,3 @@ userController.updateProfile = (req, res) => {
     }
   );
 };
-
-export default userController;

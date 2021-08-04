@@ -1,10 +1,8 @@
-import express from "express";
-import Post from "../models/Post.js";
-import mongoose from "mongoose";
+const express = require("express");
+const Post = require("../models/Post");
+const mongoose = require("mongoose");
 
-const postController = {};
-
-postController.createpost = (req, res) => {
+exports.createpost = (req, res) => {
   const { title, body, pic } = req.body;
   console.log(title, body, pic);
   if (!title || !body || !pic)
@@ -18,7 +16,7 @@ postController.createpost = (req, res) => {
     })
     .catch((error) => console.log(error));
 };
-postController.getAllPosts = (req, res) => {
+exports.getAllPosts = (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
     .populate("comments.postedBy", "_id name")
@@ -27,7 +25,7 @@ postController.getAllPosts = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
-postController.getSubPosts = (req, res) => {
+exports.getSubPosts = (req, res) => {
   Post.find({ postedBy: { $in: req.user.following } })
     .populate("postedBy", "_id name")
     .populate("comments.postedBy", "_id name")
@@ -36,7 +34,7 @@ postController.getSubPosts = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
-postController.getPosts = (req, res) => {
+exports.getPosts = (req, res) => {
   Post.find({ postedBy: req.user._id })
     .populate("postedBy", "_id name")
     .then((posts) => {
@@ -44,7 +42,7 @@ postController.getPosts = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
-postController.likePost = (req, res) => {
+exports.likePost = (req, res) => {
   Post.findByIdAndUpdate(
     req.body.postId,
     { $push: { likes: req.user._id } },
@@ -54,7 +52,7 @@ postController.likePost = (req, res) => {
     if (result) return res.status(200).json(result);
   });
 };
-postController.unlikePost = (req, res) => {
+exports.unlikePost = (req, res) => {
   Post.findByIdAndUpdate(
     req.body.postId,
     { $pull: { likes: req.user._id } },
@@ -64,7 +62,7 @@ postController.unlikePost = (req, res) => {
     if (result) return res.status(200).json(result);
   });
 };
-postController.comments = (req, res) => {
+exports.comments = (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
@@ -81,7 +79,7 @@ postController.comments = (req, res) => {
       if (result) return res.status(200).json(result);
     });
 };
-postController.deletePost = (req, res) => {
+exports.deletePost = (req, res) => {
   Post.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {
@@ -96,5 +94,3 @@ postController.deletePost = (req, res) => {
       }
     });
 };
-
-export default postController;

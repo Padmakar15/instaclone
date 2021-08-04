@@ -1,9 +1,13 @@
-import express from "express";
-import userController from "../controller/User.js";
-const { signup, signin, searchUser, followUser, unfollowUser, updateProfile } =
-  userController;
-import userMiddleware from "../middleware/RequireLogin.js";
-const { requireSignIn } = userMiddleware;
+const express = require("express");
+const { requireSignIn } = require("../middleware/RequireLogin");
+const {
+  signup,
+  signin,
+  searchUser,
+  followUser,
+  unfollowUser,
+  updateProfile,
+} = require("../controller/User");
 
 const router = express.Router();
 
@@ -14,4 +18,4 @@ router.put("/follow", requireSignIn, followUser);
 router.put("/unfollow", requireSignIn, unfollowUser);
 router.put("/updateprofile", requireSignIn, updateProfile);
 
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
-import express from "express";
-import postController from "../controller/Post.js";
+const express = require("express");
+const { requireSignIn } = require("../middleware/RequireLogin");
 const {
   createpost,
   getAllPosts,
@@ -9,9 +9,7 @@ const {
   comments,
   deletePost,
   getSubPosts,
-} = postController;
-import userMiddleware from "../middleware/RequireLogin.js";
-const { requireSignIn } = userMiddleware;
+} = require("../controller/Post");
 
 const router = express.Router();
 
@@ -24,4 +22,4 @@ router.put("/comment", requireSignIn, comments);
 router.delete("/deletepost/:postId", requireSignIn, deletePost);
 router.get("/getsubposts", requireSignIn, getSubPosts);
 
-export default router;
+module.exports = router;

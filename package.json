@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
-  },
-  "engineStrict" : true, 
-  "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -19,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start":"node --experimental-modules ./src/server.js",
+    "start":"node ./src/server.js",
     "client": "npm start --prefix client",
     "client-install": "npm install --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
