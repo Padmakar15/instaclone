@@ -4,7 +4,17 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Post = require("../models/Post");
+const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
 
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key:
+        "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",
+    },
+  })
+);
 exports.signup = (req, res) => {
   const { name, email, password, profile } = req.body;
   if (!name || !email || !password)
@@ -22,9 +32,15 @@ exports.signup = (req, res) => {
       });
       user
         .save()
-        .then((user) =>
-          res.status(200).json({ message: "user saved successfully" })
-        )
+        .then((user) => {
+          transporter.sendMail({
+            to: user.email,
+            from: "padmakarkendre55@gmail.com",
+            subject: "signup success",
+            html: "<h1>Welcome to instagram</h1>",
+          });
+          res.status(200).json({ message: "user saved successfully" });
+        })
         .catch((error) => res.status(400).json({ message: error }));
     })
     .catch((error) => res.status(400).json({ message: error }));

@@ -25,7 +25,7 @@ const CreatePost = () => {
     data.pic = res.data.url;
     console.log("data", data);
     const response = await axios.post(
-      "http://localhost:5000/api/createpost",
+      "/api/createpost",
       { ...data },
       { headers: headers }
     );

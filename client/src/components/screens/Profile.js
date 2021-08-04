@@ -11,7 +11,7 @@ const Profile = () => {
     Authorization: "Bearer " + localStorage.getItem("token"),
   };
   const getPosts = async () => {
-    const response = await axios.get("http://localhost:5000/api/getPosts", {
+    const response = await axios.get("/api/getPosts", {
       headers: headers,
     });
     setData(response.data);
@@ -35,7 +35,7 @@ const Profile = () => {
     );
 
     const response = await axios.put(
-      "http://localhost:5000/api/updateprofile",
+      "/api/updateprofile",
       { profile: res.data.url },
       {
         headers: headers,

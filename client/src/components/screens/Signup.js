@@ -29,7 +29,7 @@ const Signup = () => {
       );
       data.profile = res.data.url;
     }
-    const response = await axios.post("http://localhost:5000/api/signup", {
+    const response = await axios.post("/api/signup", {
       ...data,
     });
     if (response.status === 200) {

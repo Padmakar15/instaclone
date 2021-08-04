@@ -17,12 +17,9 @@ const UserProfile = () => {
     Authorization: "Bearer " + localStorage.getItem("token"),
   };
   const getUserProfile = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/api/user/${userid}`,
-      {
-        headers: headers,
-      }
-    );
+    const response = await axios.get(`/api/user/${userid}`, {
+      headers: headers,
+    });
 
     setProfile(response.data);
     console.log("response", response);
@@ -35,7 +32,7 @@ const UserProfile = () => {
   console.log("data", data);
   const followUser = async () => {
     const res = await axios.put(
-      "http://localhost:5000/api/follow",
+      "/api/follow",
       { followId: userid },
       {
         headers: headers,
@@ -60,7 +57,7 @@ const UserProfile = () => {
   };
   const unfollowUser = async () => {
     const res = await axios.put(
-      "http://localhost:5000/api/unfollow",
+      "/api/unfollow",
       { unfollowId: userid },
       {
         headers: headers,
@@ -125,7 +122,7 @@ const UserProfile = () => {
               </div>
               {follow ? (
                 <button
-                  style={{ margin: "10px"  }}
+                  style={{ margin: "10px" }}
                   className="btn waves-effect waves-light #64b5f6 blue darken-1"
                   onClick={() => followUser()}
                 >

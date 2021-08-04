@@ -24,7 +24,7 @@ const Login = () => {
   };
   const onSubmit = async (data) => {
     console.log("data", data);
-    const res = await axios.post("http://localhost:5000/api/signin", {
+    const res = await axios.post("/api/signin", {
       ...data,
     });
     console.log(res.data.user);

@@ -11,7 +11,7 @@ const FollowingUserPosts = () => {
     Authorization: "Bearer " + localStorage.getItem("token"),
   };
   const getFollowingUserPosts = async () => {
-    const response = await axios.get("http://localhost:5000/api/getsubposts", {
+    const response = await axios.get("/api/getsubposts", {
       headers: headers,
     });
     setData(response.data);
@@ -25,7 +25,7 @@ const FollowingUserPosts = () => {
   const likePost = async (id) => {
     console.log("id", id);
     const res = await axios.put(
-      "http://localhost:5000/api/like",
+      "/api/like",
       { postId: id },
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -44,7 +44,7 @@ const FollowingUserPosts = () => {
   const unlikePost = async (id) => {
     console.log("id", id);
     const res = await axios.put(
-      "http://localhost:5000/api/unlike",
+      "/api/unlike",
       { postId: id },
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -62,7 +62,7 @@ const FollowingUserPosts = () => {
   };
   const makeComment = async (text, id) => {
     const res = await axios.put(
-      "http://localhost:5000/api/comment",
+      "/api/comment",
       { text, postId: id },
       { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
     );
@@ -77,10 +77,9 @@ const FollowingUserPosts = () => {
     console.log("comment res", res.data);
   };
   const deletePost = async (postId) => {
-    const res = await axios.delete(
-      `http://localhost:5000/api/deletepost/${postId}`,
-      { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
-    );
+    const res = await axios.delete(`/api/deletepost/${postId}`, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+    });
     const newData = data.filter((item) => {
       return item._id !== res.data._id;
     });
