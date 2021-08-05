@@ -8,6 +8,7 @@ const {
   followUser,
   unfollowUser,
   updateProfile,
+  searchUsers,
 } = require("../controller/User");
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get("/user/:id", requireSignIn, searchUser);
 router.put("/follow", requireSignIn, followUser);
 router.put("/unfollow", requireSignIn, unfollowUser);
 router.put("/updateprofile", requireSignIn, updateProfile);
+router.post("/searchusers", searchUsers);
 
 module.exports = router;

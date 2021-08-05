@@ -10,8 +10,7 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        "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",
+      api_key: process.env.MAILSENDER,
     },
   })
 );
@@ -35,7 +34,7 @@ exports.signup = (req, res) => {
         .then((user) => {
           transporter.sendMail({
             to: user.email,
-            from: "padmakarkendre55@gmail.com",
+            from: process.env.EMAIL,
             subject: "signup success",
             html: "<h1>Welcome to instagram</h1>",
           });
@@ -149,4 +148,11 @@ exports.updateProfile = (req, res) => {
       if (result) return res.status(200).json(result);
     }
   );
+};
+exports.searchUsers = (req, res) => {
+  let userPattern = new RegExp(`^${req.body.query}`);
+  User.find({ email: { $regex: userPattern } })
+    .select("_id name")
+    .then((user) => res.json({ user }))
+    .catch((err) => res.json({ error: err }));
 };
